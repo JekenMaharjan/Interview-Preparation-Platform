@@ -13,9 +13,10 @@ const Sidebar = () => {
         }`;
 
     return (
-        <div className="flex flex-col min-h-screen w-56 border-r border-gray-300">
+        <div className="fixed left-0 top-0 h-screen w-56 flex flex-col border-r border-gray-300 bg-white dark:bg-gray-900">
+
             {/* Title */}
-            <div className="border-b p-4 border-gray-300">
+            <div className="border-b p-4 h-20 border-gray-300">
                 <p className="font-bold text-purple-800 text-xl">InterviewPrep</p>
                 <p className="text-gray-600 text-sm">Track Your Progress</p>
             </div>
