@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import ToggleBar from '@/components/ToggleBar'
 import React from 'react'
+import { SlCalender } from 'react-icons/sl'
 
 const dailyLog = () => {
 
@@ -18,6 +19,7 @@ const dailyLog = () => {
             <Sidebar />
             <main className="ml-56 pt-25 p-6">
                 <Header
+                    icon={<SlCalender className="w-5 h-5 text-purple-600 dark:text-purple-400" />}
                     header="Today's Log"
                     subheader={todaydate}
                 />

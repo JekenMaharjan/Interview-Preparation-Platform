@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RiFocus2Line } from "react-icons/ri";
+import { MdOutlineDashboard } from "react-icons/md";
+import { IoBookOutline } from "react-icons/io5";
+import { SlCalender } from "react-icons/sl";
 
 const Sidebar = () => {
     const pathname = usePathname();
@@ -35,15 +38,15 @@ const Sidebar = () => {
             {/* Navigation */}
             <nav className="flex flex-col p-4 gap-2">
                 <Link href="/dashboard" className={navItemClass("/dashboard")}>
-                    Dashboard
+                    <MdOutlineDashboard className="inline mr-2" />Dashboard
                 </Link>
 
                 <Link href="/topics" className={navItemClass("/topics")}>
-                    Topics
+                    <IoBookOutline className="inline mr-2" />Topics
                 </Link>
 
                 <Link href="/dailyLog" className={navItemClass("/dailyLog")}>
-                    Daily Log
+                    <SlCalender className="inline mr-2" />Daily Log
                 </Link>
             </nav>
 
