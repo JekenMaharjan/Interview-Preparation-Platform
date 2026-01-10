@@ -1,4 +1,6 @@
 import Header from '@/components/Header'
+import NotesReflections from '@/components/NotesReflections'
+import RecentActivity from '@/components/RecentActivity'
 import Sidebar from '@/components/Sidebar'
 import StudyToday from '@/components/StudyToday'
 import ToggleBar from '@/components/ToggleBar'
@@ -22,6 +24,8 @@ const dailyLog = () => {
                     subheader={todaydate}
                 />
                 <StudyToday />
+                <NotesReflections />
+                <RecentActivity />
             </main>
         </div>
     )

@@ -37,7 +37,7 @@ const StudyToday = () => {
     if (!mounted) return null;
 
     return (
-        <div className="border border-gray-300 shadow-xl rounded-lg p-4 my-6 bg-white dark:bg-gray-800">
+        <div className="border border-gray-300 shadow-md rounded-lg p-7 my-6 bg-white dark:bg-gray-800">
             <p className="font-semibold mb-2">What did you study today?</p>
 
             {data.map((item) => (
