@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
+import StudyToday from '@/components/StudyToday'
 import ToggleBar from '@/components/ToggleBar'
 import React from 'react'
 
@@ -20,6 +21,7 @@ const dailyLog = () => {
                     header="Today's Log"
                     subheader={todaydate}
                 />
+                <StudyToday />
             </main>
         </div>
     )
