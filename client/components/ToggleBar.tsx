@@ -26,10 +26,10 @@ const ToggleBar = () => {
     };
 
     return (
-        <div className="w-screen h-20 border-b border-gray-300 dark:border-gray-700 flex justify-end px-4">
+        <div className="fixed w-full bg-white/30 backdrop-blur-sm h-20 border-b border-gray-300 dark:border-gray-700 dark:bg-gray-700/30 flex justify-end">
             <button
                 onClick={toggleTheme}
-                className={`my-5 px-3 rounded-xl transition-colors duration-200
+                className={`my-5 mx-5 px-3 rounded-xl transition-colors duration-200
             ${dark
                         ? "bg-gray-700 hover:bg-gray-600"
                         : "bg-gray-300 hover:bg-gray-400"

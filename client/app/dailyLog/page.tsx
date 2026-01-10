@@ -1,8 +1,6 @@
+import DashboardPage from '@/components/DashboardPage'
 import Header from '@/components/Header'
-import NotesReflections from '@/components/NotesReflections'
-import RecentActivity from '@/components/RecentActivity'
 import Sidebar from '@/components/Sidebar'
-import StudyToday from '@/components/StudyToday'
 import ToggleBar from '@/components/ToggleBar'
 import React from 'react'
 
@@ -18,14 +16,12 @@ const dailyLog = () => {
         <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
             <ToggleBar />
             <Sidebar />
-            <main className="ml-56 pt-6 p-6">
+            <main className="ml-56 pt-25 p-6">
                 <Header
                     header="Today's Log"
                     subheader={todaydate}
                 />
-                <StudyToday />
-                <NotesReflections />
-                <RecentActivity />
+                <DashboardPage />
             </main>
         </div>
     )
