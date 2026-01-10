@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { LuSave } from "react-icons/lu";
 
-const DashboardPage = () => {
+const DailyLog = () => {
     // -------------------- Study Today --------------------
     const studyData = [
         {
@@ -148,10 +148,12 @@ const DashboardPage = () => {
     if (!mounted) return null;
 
     return (
-        <div className="max-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
             {/* -------------------- Study Today -------------------- */}
-            <div className="border border-gray-300 shadow-md rounded-lg p-7 my-6 bg-white dark:bg-gray-800">
-                <p className="font-semibold mb-2">What did you study today?</p>
+            <div className="border border-gray-300 shadow-md rounded-lg p-7 my-6 bg-white dark:bg-gray-800 dark:border-gray-700">
+                <p className="font-semibold mb-2">
+                    What did you study today?
+                </p>
                 {studyData.map((item) => (
                     <div key={item.topic} className="mb-4">
                         <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{item.topic}</p>
@@ -198,11 +200,11 @@ const DashboardPage = () => {
             </div>
 
             {/* -------------------- Recent Activity -------------------- */}
-            <div className="border border-gray-300 shadow-md rounded-lg p-7 bg-white dark:bg-gray-800">
+            <div className="border border-gray-300 shadow-md rounded-lg p-7 bg-white dark:bg-gray-800 dark:border-gray-700">
                 <h2 className="text-md font-semibold mb-4 text-gray-900 dark:text-gray-100">
                     Recent Activity
                 </h2>
-                <div className="border p-5 border-gray-300 bg-gray-100 w-full h-full dark:bg-gray-700 rounded-xl">
+                <div className="border p-5 border-gray-300 bg-gray-100 w-full h-full dark:bg-gray-700 dark:border-gray-600 rounded-xl">
                     <div className="flex justify-between mb-3">
                         <p className="text-sm font-semibold">
                             Today
@@ -230,4 +232,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+export default DailyLog;

@@ -1,4 +1,4 @@
-import DashboardPage from '@/components/DashboardPage'
+import DailyLog from '@/components/DailyLog'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import ToggleBar from '@/components/ToggleBar'
@@ -21,7 +21,7 @@ const dailyLog = () => {
                     header="Today's Log"
                     subheader={todaydate}
                 />
-                <DashboardPage />
+                <DailyLog />
             </main>
         </div>
     )

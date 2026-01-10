@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import ToggleBar from '@/components/ToggleBar'
+import Topics from '@/components/Topics'
 import React from 'react'
 
 const topics = () => {
@@ -9,11 +10,12 @@ const topics = () => {
             <ToggleBar />
             <Sidebar />
 
-            <main className="ml-56 pt-6 p-6">
+            <main className="ml-56 pt-25 p-6">
                 <Header
                     header="Topics"
                     subheader="Explore and manage your topics"
                 />
+                <Topics />
             </main>
         </div>
     )

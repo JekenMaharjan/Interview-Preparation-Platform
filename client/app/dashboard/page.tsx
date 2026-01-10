@@ -8,7 +8,7 @@ const Dashboard = () => {
             <ToggleBar />
             <Sidebar />
 
-            <main className="ml-56 pt-6 p-6">
+            <main className="ml-56 pt-25 p-6">
                 <Header
                     header="Dashboard"
                     subheader="Track your daily learning progress"
