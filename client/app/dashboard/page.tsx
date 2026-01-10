@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import ToggleBar from "@/components/ToggleBar";
 
@@ -7,9 +8,11 @@ const Dashboard = () => {
             <ToggleBar />
             <Sidebar />
 
-            {/* Main content area */}
-            <main className="ml-56 pt-20 p-6">
-                {/* Your dashboard content here */}
+            <main className="ml-56 pt-6 p-6">
+                <Header
+                    header="Dashboard"
+                    subheader="Track your daily learning progress"
+                />
             </main>
         </div>
     );

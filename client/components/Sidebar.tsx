@@ -20,7 +20,7 @@ const Sidebar = () => {
 
             {/* Title */}
             <div className="border-b p-4 h-20 border-gray-300 dark:border-gray-700">
-                <p className="font-bold text-purple-800 text-xl dark:text-purple-300">
+                <p className="font-bold text-purple-700 text-2xl dark:text-purple-500">
                     InterviewPrep
                 </p>
                 <p className="text-gray-600 text-sm dark:text-gray-400">
