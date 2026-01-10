@@ -1,14 +1,18 @@
-import Sidebar from '@/components/Sidebar'
-import ToggleBar from '@/components/ToggleBar'
-import React from 'react'
+import Sidebar from "@/components/Sidebar";
+import ToggleBar from "@/components/ToggleBar";
 
-const dashboard = () => {
+const Dashboard = () => {
     return (
-        <div>
-            <Sidebar />
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
             <ToggleBar />
-        </div>
-    )
-}
+            <Sidebar />
 
-export default dashboard
+            {/* Main content area */}
+            <main className="ml-56 pt-20 p-6">
+                {/* Your dashboard content here */}
+            </main>
+        </div>
+    );
+};
+
+export default Dashboard;
