@@ -9,7 +9,7 @@ type HeaderProps = {
 const Header = ({icon, header, subheader }: HeaderProps) => {
     return (
         <div className="flex items-center gap-4 mb-6">
-            <div className="bg-purple-200 p-3 rounded-xl">
+            <div className="bg-purple-200 p-3 rounded-xl dark:bg-purple-700 dark:text-gray-200">
                 {icon}
             </div>
             <div>

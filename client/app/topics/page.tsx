@@ -13,7 +13,7 @@ const topics = () => {
 
             <main className="ml-56 pt-25 p-6">
                 <Header
-                    icon={<IoBookOutline className="w-5 h-5 text-purple-600 dark:text-purple-400" />}
+                    icon={<IoBookOutline className="w-5 h-5 text-purple-700 dark:text-gray-300" />}
                     header="Topics"
                     subheader="Explore and manage your topics"
                 />

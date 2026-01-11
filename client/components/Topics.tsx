@@ -8,27 +8,27 @@ import { SiMaterialdesignicons } from "react-icons/si";
 const Topics = () => {
     const topics = [
         {
-            icon: <FaReact className='h-7 w-7 text-purple-600'/>,
+            icon: <FaReact className='h-7 w-7 text-purple-700 dark:text-purple-300'/>,
             name: 'React',
             completion: '0 of 8 topics completed',
         },
         {
-            icon: <IoLogoJavascript className='h-7 w-7 text-purple-600'/>,
+            icon: <IoLogoJavascript className='h-7 w-7 text-purple-700 dark:text-purple-300'/>,
             name: 'JavaScript',
             completion: '0 of 8 topics completed',
         },
         {
-            icon: <FaGitAlt className='h-7 w-7 text-purple-600'/>,
+            icon: <FaGitAlt className='h-7 w-7 text-purple-700 dark:text-purple-300'/>,
             name: 'Git',
             completion: '0 of 6 topics completed',
         },
         {
-            icon: <SiMysql className='h-7 w-7 text-purple-600'/>,
+            icon: <SiMysql className='h-7 w-7 text-purple-700 dark:text-purple-300'/>,
             name: 'SQL',
             completion: '0 of 7 topics completed',
         },
         {
-            icon: <SiMaterialdesignicons className='h-7 w-7 text-purple-600'/>,
+            icon: <SiMaterialdesignicons className='h-7 w-7 text-purple-700 dark:text-purple-300'/>,
             name: 'System Design',
             completion: '0 of 8 topics completed',
         },
