@@ -45,7 +45,7 @@ const Sidebar = () => {
                     <IoBookOutline className="inline mr-3 text-xl" />Topics
                 </Link>
 
-                <Link href="/dailyLog" className={navItemClass("/dailyLog")}>
+                <Link href="/daily-log" className={navItemClass("/daily-log")}>
                     <SlCalender className="inline mr-3 text-xl" />Daily Log
                 </Link>
             </nav>

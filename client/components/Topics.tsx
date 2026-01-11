@@ -1,11 +1,16 @@
+"use client"
+
 import React from 'react'
 import { FaReact } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 import { FaGitAlt } from "react-icons/fa";
 import { SiMysql } from "react-icons/si";
 import { SiMaterialdesignicons } from "react-icons/si";
+import { useRouter } from 'next/navigation';
 
 const Topics = () => {
+    const router = useRouter();
+
     const topics = [
         {
             icon: <FaReact className='h-7 w-7 text-purple-700 dark:text-purple-300' />,
@@ -34,6 +39,13 @@ const Topics = () => {
         },
     ];
 
+    const topicsPrep = (topicName:string) => {
+        const slug = topicName
+            .toLowerCase()
+            .replace(/\s+/g, '-'); // Replace spaces with hyphens
+        router.push(`topics/${slug}`);
+    };
+
     return (
         <div className='mt-6 px-4 sm:px-0'>
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -43,6 +55,7 @@ const Topics = () => {
                     topics.map((topic, index) => (
                         <div
                             key={index}
+                            onClick={() => topicsPrep(topic.name)}
                             className='flex flex-col w-full cursor-pointer hover:shadow-md 
                                         border border-gray-300 dark:border-gray-700 
                                         p-5 shadow-sm rounded-xl 
@@ -62,7 +75,6 @@ const Topics = () => {
                                     0%
                                 </div>
                             </div>
-
                             <div className='w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2'>
                                 <div
                                     className='bg-purple-600 h-2 rounded-full'

@@ -2,6 +2,7 @@ import React from 'react'
 import Topics from './Topics'
 import { GiProgression } from "react-icons/gi"
 import CircularProgress from './CircularProgress'
+import { MdOutlineDoneOutline } from "react-icons/md";
 
 const DashboardPage = () => {
 
@@ -10,7 +11,7 @@ const DashboardPage = () => {
             about: 'Completed',
             completed: '5',
             outOf: '37',
-            icon: <GiProgression className="w-5 h-5 text-purple-700" />,
+            icon: <MdOutlineDoneOutline className="w-5 h-5 text-purple-700" />,
         },
         {
             about: 'In Progress',
