@@ -1,7 +1,7 @@
 import React from 'react'
 import Topics from './Topics'
-import { GiProgression } from "react-icons/gi";
-import CircularProgress from './CircularProgress';
+import { GiProgression } from "react-icons/gi"
+import CircularProgress from './CircularProgress'
 
 const DashboardPage = () => {
 
@@ -10,79 +10,97 @@ const DashboardPage = () => {
             about: 'Completed',
             completed: '5',
             outOf: '37',
-            icon: <GiProgression className='w-5 h-5 text-purple-700'/>,
+            icon: <GiProgression className="w-5 h-5 text-purple-700" />,
         },
         {
             about: 'In Progress',
             completed: '3',
             outOf: 'topics active',
-            icon: <GiProgression className='w-5 h-5 text-purple-700'/>,
+            icon: <GiProgression className="w-5 h-5 text-purple-700" />,
         },
         {
             about: 'Not Started',
             completed: '4',
             outOf: 'topics remaining',
-            icon: <GiProgression className='w-5 h-5 text-purple-700'/>,
+            icon: <GiProgression className="w-5 h-5 text-purple-700" />,
         },
-    ];
+    ]
 
     return (
-        <div>
-            <div className="flex items-center dark:border-gray-600 dark:bg-gray-800 justify-center h-45 bg-white border-gray-300 rounded-xl border mb-5">
-                <CircularProgress value={8} />
-            </div>
+        <div className="px-4 sm:px-0">
 
+            {/* ===== Top Stats ===== */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-7">
 
-            <div className="flex gap-4 mb-5">
+                {/* Circular Progress Card */}
+                <div className="flex items-center justify-center
+                        bg-white dark:bg-gray-800
+                        border border-gray-300 dark:border-gray-600
+                        rounded-xl min-h-[160px]">
+                    <CircularProgress value={8} />
+                </div>
+
+                {/* Info Cards */}
                 {infoCards.map((card, index) => (
                     <div
                         key={index}
-                        className="flex gap-6 p-5 px-6 pb-8 border bg-white hover:shadow-md border-gray-300 rounded-xl"
+                        className="flex items-center justify-between
+                        p-6 bg-white dark:bg-gray-800
+                        border border-gray-300 dark:border-gray-600
+                        rounded-xl min-h-[160px]"
                     >
-                        <div className="flex flex-col">
-                            <div className="font-semibold text-sm text-gray-500 mb-4">
+                        <div>
+                            <p className="text-sm text-gray-500 font-semibold mb-2">
                                 {card.about}
-                            </div>
+                            </p>
 
-                            <div className="text-black text-3xl font-bold">
+                            <p className="text-3xl font-bold text-black dark:text-white">
                                 {card.completed}
-                            </div>
+                            </p>
 
-                            <div className="text-gray-500 text-sm">
-                                {card.outOf === '37' ?  card.outOf && `of ${card.outOf} topics`  : card.outOf}
-                                
-                            </div>
+                            <p className="text-sm text-gray-500">
+                                {card.outOf === '37'
+                                    ? `of ${card.outOf} topics`
+                                    : card.outOf}
+                            </p>
                         </div>
 
-                        <div className="flex bg-purple-200 p-3 h-13 w-13 rounded-2xl justify-center items-center">
+                        <div className="bg-purple-200 p-3 rounded-2xl">
                             {card.icon}
                         </div>
                     </div>
                 ))}
             </div>
 
+            {/* ===== Motivation Banner ===== */}
+            <div className="flex flex-col sm:flex-row items-center
+                        gap-4 sm:gap-6 p-6 mb-7
+                        bg-purple-100 dark:bg-purple-200/20
+                        border border-gray-300 dark:border-gray-600
+                        rounded-xl">
 
-            <div className='flex items-center border dark:border-gray-600 gap-6 p-6 dark:bg-purple-200/20 bg-purple-100 border-gray-300 rounded-xl mb-7 w-full h-30'>
-                <div className='flex justify-center items-center bg-purple-300 p-5 w-20 h-20 rounded-full'>
-                    <GiProgression  className='text-purple-600 w-7 h-7'/>
+                <div className="flex items-center justify-center
+                        bg-purple-300 w-20 h-20 rounded-full">
+                    <GiProgression className="w-7 h-7 text-purple-600" />
                 </div>
-                <div>
-                    <p className='font-semibold dark:text-white text-md mb-2'>
+
+                <div className="text-center sm:text-left">
+                    <p className="font-semibold text-md dark:text-white mb-1">
                         Keep Going!
                     </p>
-                    <p className='text-sm text-gray-600 dark:text-gray-400 mb-1'>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                         Great Progress! Stay focused and keep learning.
                     </p>
-                    <p className='text-sm text-purple-600 dark:text-purple-500'>
+                    <p className="text-sm text-purple-600 dark:text-purple-500">
                         You've logged 1 study session so far!
                     </p>
                 </div>
             </div>
 
-            <p className='font-semibold text-lg'>Categories</p>
-            <div className='flex flex-wrap gap-6 justify-center md:justify-start'>
-                <Topics />
-            </div>
+            {/* ===== Categories ===== */}
+            <p className="font-semibold text-lg mb-4">Categories</p>
+            <Topics />
+
         </div>
     )
 }

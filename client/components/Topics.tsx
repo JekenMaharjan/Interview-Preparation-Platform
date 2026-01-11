@@ -44,9 +44,9 @@ const Topics = () => {
                         <div
                             key={index}
                             className='flex flex-col w-full cursor-pointer hover:shadow-md 
-                                       border border-gray-300 dark:border-gray-700 
-                                       p-5 shadow-sm rounded-xl 
-                                       bg-white dark:bg-gray-800'
+                                        border border-gray-300 dark:border-gray-700 
+                                        p-5 shadow-sm rounded-xl 
+                                        bg-white dark:bg-gray-800'
                         >
                             <div className='flex justify-between items-center mb-4'>
                                 <div className='flex items-center gap-4'>
