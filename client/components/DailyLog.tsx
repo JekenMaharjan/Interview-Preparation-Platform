@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { IoBookOutline } from "react-icons/io5";
 import { LuSave } from "react-icons/lu";
 
 const DailyLog = () => {
@@ -156,63 +157,65 @@ const DailyLog = () => {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-            {/* -------------------- Study Today -------------------- */}
-            <div className="border border-gray-300 shadow-md rounded-lg p-7 my-6 bg-white dark:bg-gray-800 dark:border-gray-700">
-                <p className="font-semibold mb-2">
-                    What did you study today?
-                </p>
-                {studyData.map((item) => (
-                    <div key={item.topic} className="mb-4">
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{item.topic}</p>
-                        <div className="flex flex-wrap gap-2">
-                            {item.about.map((point) => {
-                                const key = item.topic + point;
-                                const active = selectedStudy.includes(key);
-                                return (
-                                    <span
-                                        key={key}
-                                        onClick={() => toggleStudy(key)}
-                                        className={`cursor-pointer text-xs px-3 py-1 rounded-full transition
+        <div className="flex gap-6 min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+            <div className="flex flex-col">
+                {/* -------------------- Study Today -------------------- */}
+                <div className="border border-gray-300 shadow-md rounded-lg p-7 my-6 lg:w-200 bg-white dark:bg-gray-800 dark:border-gray-700">
+                    <p className="font-semibold mb-2">
+                        What did you study today?
+                    </p>
+                    {studyData.map((item) => (
+                        <div key={item.topic} className="mb-4">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{item.topic}</p>
+                            <div className="flex flex-wrap gap-2">
+                                {item.about.map((point) => {
+                                    const key = item.topic + point;
+                                    const active = selectedStudy.includes(key);
+                                    return (
+                                        <span
+                                            key={key}
+                                            onClick={() => toggleStudy(key)}
+                                            className={`cursor-pointer text-xs px-3 py-1 rounded-full transition
                     ${active
-                                                ? "bg-purple-500 text-white"
-                                                : "bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
-                                            }`}
-                                    >
-                                        {active && "✔ "} {point}
-                                    </span>
-                                );
-                            })}
+                                                    ? "bg-purple-500 text-white"
+                                                    : "bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+                                                }`}
+                                        >
+                                            {active && "✔ "} {point}
+                                        </span>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
 
-            {/* -------------------- Notes & Reflections -------------------- */}
-            <div className="border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded-lg p-7 my-6">
-                <p className="font-semibold">Notes & Reflections</p>
-                <textarea
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    className="w-full text-sm h-40 mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    placeholder="What did you learn today? Any challenges or breakthroughs?"
-                />
-                <div className="flex justify-center">
-                    <button
-                        onClick={saveLog}
-                        className="mt-2 flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition"
-                    >
-                        <LuSave /> Save Today's Log
-                    </button>
+                {/* -------------------- Notes & Reflections -------------------- */}
+                <div className="border border-gray-300 lg:w-200 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded-lg p-7">
+                    <p className="font-semibold">Notes & Reflections</p>
+                    <textarea
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        className="w-full text-sm h-40 mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="What did you learn today? Any challenges or breakthroughs?"
+                    />
+                    <div className="flex justify-center">
+                        <button
+                            onClick={saveLog}
+                            className="mt-2 flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition"
+                        >
+                            <LuSave /> Save Today's Log
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {/* -------------------- Recent Activity -------------------- */}
-            <div className="border border-gray-300 shadow-md rounded-lg p-7 bg-white dark:bg-gray-800 dark:border-gray-700">
-                <h2 className="text-md font-semibold mb-4 text-gray-900 dark:text-gray-100">
-                    Recent Activity
+            <div className="border w-full mt-6 border-gray-300 shadow-md rounded-lg p-7 bg-white dark:bg-gray-800 dark:border-gray-700">
+                <h2 className="flex gap-4 items-center text-md font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                    <IoBookOutline />Recent Activity
                 </h2>
-                <div className="border p-5 border-gray-300 bg-gray-100 w-full h-full dark:bg-gray-700 dark:border-gray-600 rounded-xl">
+                <div className="border p-5 border-gray-300 bg-gray-100 w-full max-h-full dark:bg-gray-700 dark:border-gray-600 rounded-xl">
                     <div className="flex justify-between mb-3">
                         <p className="text-sm font-semibold">
                             Today
@@ -239,7 +242,6 @@ const DailyLog = () => {
                         </div>
                     )}
                 </div>
-
             </div>
         </div>
     );
