@@ -111,21 +111,26 @@ const DailyLog = () => {
 
     // -------------------- Notes & Reflections --------------------
     const [notes, setNotes] = useState("");
+    const [savedText, setSavedText] = useState("");
+
 
     useEffect(() => {
         const savedNotes = localStorage.getItem("notes");
         if (savedNotes) setNotes(savedNotes);
     }, []);
 
+    useEffect(() => {
+        const saved = localStorage.getItem("saved-text");
+        if (saved) setSavedText(saved);
+    }, []);
+
+
     // -------------------- Recent Activity --------------------
     const [recentActivities, setRecentActivities] = useState<{ text: string }[]>([]);
 
     // -------------------- Save button action --------------------
     const saveLog = () => {
-        // Only save the selected "about" items (without topic prefix)
         const newActivities = selectedStudy.map((key) => {
-            // key is topic + point, e.g., "ReactuseState"
-            // Extract the "about" part by removing the topic prefix
             for (let item of studyData) {
                 for (let point of item.about) {
                     if (key === item.topic + point) return { text: point };
@@ -135,7 +140,10 @@ const DailyLog = () => {
         });
 
         setRecentActivities(newActivities); // Update Recent Activity
+        setSavedText(notes); 
+        
         localStorage.setItem("notes", notes); // Save notes
+        localStorage.setItem("saved-text", notes); // Save displayed notes
         localStorage.setItem("recent-activities", JSON.stringify(newActivities)); // Save activities
     };
 
@@ -222,11 +230,16 @@ const DailyLog = () => {
                         {recentActivities.map((activity, index) => (
                             <div key={index} className="inline text-xs bg-purple-200 dark:bg-purple-500 text-purple-700 dark:text-gray-200 px-3 py-1 rounded-full ">
                                 {activity.text}
-                            </div>  
+                            </div>
                         ))}
                     </div>
+                    {savedText && (
+                        <div className="mt-4 p-4 border border-gray-300 rounded-md text-sm sm:text-sm bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            {savedText}
+                        </div>
+                    )}
                 </div>
-                
+
             </div>
         </div>
     );

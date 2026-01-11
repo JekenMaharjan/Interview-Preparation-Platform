@@ -18,7 +18,7 @@ const Sidebar = () => {
         }`;
 
     return (
-        <div className="fixed left-0 top-0 h-screen w-56 flex flex-col
+        <div className="fixed left-0 top-0 h-screen w-60 flex flex-col
         border-r bg-white border-gray-300
         dark:bg-gray-900 dark:border-gray-700">
 
@@ -59,7 +59,7 @@ const Sidebar = () => {
                     <p className="text-sm font-semibold text-gray-800 dark:text-gray-50">
                         Stay consistent!
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-300">
+                    <p className="text-xs text-gray-500 dark:text-gray-300">
                         Small daily progress leads to big results.
                     </p>
                 </div>

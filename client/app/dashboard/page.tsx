@@ -10,7 +10,7 @@ const Dashboard = () => {
             <ToggleBar />
             <Sidebar />
 
-            <main className="ml-56 pt-25 p-6">
+            <main className="ml-60 pt-25 p-6">
                 <Header
                     icon={<MdOutlineDashboard className="w-5 h-5 text-purple-700 dark:text-gray-300" />}
                     header="Dashboard"
