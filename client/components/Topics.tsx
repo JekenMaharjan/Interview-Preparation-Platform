@@ -14,7 +14,7 @@ type Lesson = { title: string; state: LessonState };
 
 const topicKeys = [
     { name: "React", key: "react-topic-progress", icon: <FaReact className="h-7 w-7 text-purple-700 dark:text-purple-300" /> },
-    { name: "JavaScript", key: "javascript-topic-progress", icon: <IoLogoJavascript className="h-7 w-7 text-purple-700 dark:text-purple-300" /> },
+    { name: "JavaScript", key: "js-topic-progress", icon: <IoLogoJavascript className="h-7 w-7 text-purple-700 dark:text-purple-300" /> },
     { name: "Git", key: "git-topic-progress", icon: <FaGitAlt className="h-7 w-7 text-purple-700 dark:text-purple-300" /> },
     { name: "SQL", key: "mysql-topic-progress", icon: <SiMysql className="h-7 w-7 text-purple-700 dark:text-purple-300" /> },
     { name: "System Design", key: "system-design-topic-progress", icon: <SiMaterialdesignicons className="h-7 w-7 text-purple-700 dark:text-purple-300" /> },
