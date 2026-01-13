@@ -20,8 +20,8 @@ const Topics = () => {
     // Default lessons
     const defaultLessons: Lesson[] = [
         { title: "useState Hook", state: 0 },
-        { title: "useEffect Hook", state: 1 },
-        { title: "Props", state: 2 },
+        { title: "useEffect Hook", state: 0 },
+        { title: "Props", state: 0 },
         { title: "State Lifting", state: 0 },
         { title: "Context API", state: 0 },
         { title: "Custom Hooks", state: 0 },
@@ -109,7 +109,6 @@ const Topics = () => {
         ? Math.round((completedCount / topicLesson.length) * 100)
         : 0;
 
-    // --- Render ---
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
             <ToggleBar />
