@@ -7,6 +7,7 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { SiMaterialdesignicons } from "react-icons/si";
 import { LuClock } from "react-icons/lu";
 import { FaCheck } from "react-icons/fa6";
+import { GrNotes } from "react-icons/gr";
 
 // --- Types ---
 type LessonState = 0 | 1 | 2;
@@ -16,77 +17,101 @@ type Lesson = {
     state: LessonState;
 };
 
+const LESSON_KEY = "system-design-topic-progress";
+const NOTES_KEY = "system-design-lesson-notes";
+
 const Topics = () => {
-    // Original lessons
     const defaultLessons: Lesson[] = [
-        { title: 'REST APIs', state: 0 },
-        { title: 'Scalability basics', state: 0 },
-        { title: 'Load Balancing', state: 0 },
-        { title: 'Caching strategies', state: 0 },
-        { title: 'Database design', state: 0 },
-        { title: 'Microservices', state: 0 },
-        { title: 'Rate limiting', state: 0 },
-        { title: 'Data partitioning', state: 0 },
-        { title: 'Message Queues', state: 0 },
-        { title: 'CAP theorem', state: 0 },
-        { title: 'High availability', state: 0 },
+        { title: "REST APIs", state: 0 },
+        { title: "Scalability basics", state: 0 },
+        { title: "Load Balancing", state: 0 },
+        { title: "Caching strategies", state: 0 },
+        { title: "Database design", state: 0 },
+        { title: "Microservices", state: 0 },
+        { title: "Rate limiting", state: 0 },
+        { title: "Data partitioning", state: 0 },
+        { title: "Message Queues", state: 0 },
+        { title: "CAP theorem", state: 0 },
+        { title: "High availability", state: 0 },
     ];
 
-    const [topicLesson, setTopicLesson] = useState<Lesson[]>([]);
+    // 🔒 Hydration guard
+    const [mounted, setMounted] = useState(false);
+    const [topicLesson, setTopicLesson] = useState<Lesson[]>(defaultLessons);
+    const [notes, setNotes] = useState<{ [key: string]: string }>({});
+    const [showNotes, setShowNotes] = useState<{ [key: string]: boolean }>({});
 
-    // Load progress from localStorage
+    // ✅ Load lessons & notes
     useEffect(() => {
-        const saved = localStorage.getItem("system-design-topic-progress");
-        if (saved) setTopicLesson(JSON.parse(saved));
-        else setTopicLesson(defaultLessons);
+        setMounted(true);
+        const savedLessons = localStorage.getItem(LESSON_KEY);
+        const savedNotes = localStorage.getItem(NOTES_KEY);
+
+        setTopicLesson(savedLessons ? JSON.parse(savedLessons) : defaultLessons);
+        setNotes(savedNotes ? JSON.parse(savedNotes) : {});
     }, []);
 
-    // Save progress to localStorage
+    // ✅ Persist lessons
     useEffect(() => {
-        if (topicLesson.length > 0)
-            localStorage.setItem("system-design-topic-progress", JSON.stringify(topicLesson));
-    }, [topicLesson]);
+        if (mounted) {
+            localStorage.setItem(LESSON_KEY, JSON.stringify(topicLesson));
+        }
+    }, [topicLesson, mounted]);
+
+    // ✅ Persist notes
+    useEffect(() => {
+        if (mounted) {
+            localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+        }
+    }, [notes, mounted]);
+
+    // ⛔ Prevent hydration mismatch
+    if (!mounted) return null;
 
     // --- Handlers ---
     const handleClick = (index: number) => {
-        setTopicLesson(prev =>
+        setTopicLesson((prev) =>
             prev.map((lesson, i) =>
-                i === index ? { ...lesson, state: ((lesson.state + 1) % 3) as LessonState } : lesson
+                i === index
+                    ? { ...lesson, state: ((lesson.state + 1) % 3) as LessonState }
+                    : lesson
             )
         );
+    };
+
+    const toggleNotes = (title: string) => {
+        setShowNotes((prev) => ({ ...prev, [title]: !prev[title] }));
+    };
+
+    const handleNotesChange = (title: string, value: string) => {
+        setNotes((prev) => ({ ...prev, [title]: value }));
     };
 
     const handleBack = () => window.history.back();
 
     // --- Helpers ---
-    const getCheckboxClasses = (state: LessonState): string => {
-        switch (state) {
-            case 1: return "bg-yellow-500 border-yellow-500";
-            case 2: return "bg-purple-500 border-purple-500";
-            default: return "bg-white border-gray-300 hover:border-purple-500";
-        }
+    const getCheckboxClasses = (state: LessonState) => {
+        if (state === 1) return "bg-yellow-500 border-yellow-500";
+        if (state === 2) return "bg-purple-500 border-purple-500";
+        return "bg-white border-gray-300 hover:border-purple-500";
     };
 
-    const getStateText = (state: LessonState): string => {
-        switch (state) {
-            case 1: return "In Progress";
-            case 2: return "Completed";
-            default: return "Not Started";
-        }
+    const getStateText = (state: LessonState) => {
+        if (state === 1) return "In Progress";
+        if (state === 2) return "Completed";
+        return "Not Started";
     };
 
-    const getStateBadgeClasses = (state: LessonState): string => {
-        switch (state) {
-            case 1: return "bg-yellow-500 text-white";
-            case 2: return "bg-purple-500 text-white";
-            default: return "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300";
-        }
+    const getStateBadgeClasses = (state: LessonState) => {
+        if (state === 1) return "bg-yellow-500 text-white";
+        if (state === 2) return "bg-purple-500 text-white";
+        return "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300";
     };
 
-    const completedCount = topicLesson.filter(l => l.state === 2).length;
-    const progressPercent = topicLesson.length
-        ? Math.round((completedCount / topicLesson.length) * 100)
-        : 0;
+    const completedCount = topicLesson.filter((l) => l.state === 2).length;
+    const progressPercent = Math.round(
+        (completedCount / topicLesson.length) * 100
+    );
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -97,14 +122,14 @@ const Topics = () => {
                 {/* Back */}
                 <p
                     onClick={handleBack}
-                    className="flex mb-5 items-center text-gray-500 text-sm cursor-pointer hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="flex mb-5 items-center text-gray-500 text-sm cursor-pointer hover:text-gray-900 dark:text-gray-400"
                 >
                     <MdOutlineKeyboardBackspace className="w-5 h-5 mr-2" />
                     Back to Topics
                 </p>
 
                 {/* Header */}
-                <div className="flex flex-col w-full rounded-xl bg-white dark:bg-gray-800 p-6 mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-6">
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-xl">
@@ -112,51 +137,83 @@ const Topics = () => {
                             </div>
                             <div>
                                 <p className="text-xl font-bold">System Design</p>
-                                <p className="text-sm text-gray-500 mt-1">
+                                <p className="text-sm text-gray-500">
                                     {completedCount} of {topicLesson.length} topics completed
                                 </p>
                             </div>
                         </div>
 
                         <div className="text-right">
-                            <p className="text-2xl font-bold text-purple-600">{progressPercent}%</p>
+                            <p className="text-2xl font-bold text-purple-600">
+                                {progressPercent}%
+                            </p>
                             <p className="text-sm text-gray-500">Completed</p>
                         </div>
                     </div>
 
-                    {/* Progress Bar */}
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         <div
-                            className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+                            className="bg-purple-600 h-2 rounded-full transition-all"
                             style={{ width: `${progressPercent}%` }}
                         />
                     </div>
                 </div>
 
                 {/* Lessons */}
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid gap-4">
                     {topicLesson.map((lesson, index) => (
                         <div
-                            key={index}
-                            className="flex justify-between items-center p-5 bg-white dark:bg-gray-800 rounded-lg shadow"
+                            key={lesson.title}
+                            className="bg-white dark:bg-gray-800 rounded-lg shadow p-5"
                         >
-                            <div className="flex items-center gap-4">
-                                {/* Tri-state checkbox */}
-                                <div
-                                    onClick={() => handleClick(index)}
-                                    className={`h-7 w-7 cursor-pointer rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${getCheckboxClasses(lesson.state)}`}
-                                >
-                                    {lesson.state === 1 && <LuClock className="text-white text-lg" />}
-                                    {lesson.state === 2 && <FaCheck className="text-white text-sm" />}
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-4">
+                                    <div
+                                        onClick={() => handleClick(index)}
+                                        className={`h-7 w-7 cursor-pointer rounded-full border-2 flex items-center justify-center ${getCheckboxClasses(
+                                            lesson.state
+                                        )}`}
+                                    >
+                                        {lesson.state === 1 && (
+                                            <LuClock className="text-white" />
+                                        )}
+                                        {lesson.state === 2 && (
+                                            <FaCheck className="text-white text-sm" />
+                                        )}
+                                    </div>
+
+                                    <p className="font-semibold">{lesson.title}</p>
                                 </div>
 
-                                <p className="font-semibold">{lesson.title}</p>
+                                <div className="flex gap-4">
+                                    <span
+                                        className={`px-3 py-1 rounded-full text-xs ${getStateBadgeClasses(
+                                            lesson.state
+                                        )}`}
+                                    >
+                                        {getStateText(lesson.state)}
+                                    </span>
+
+                                    <button
+                                        onClick={() => toggleNotes(lesson.title)}
+                                        className="px-3 py-2 rounded-xl bg-gray-100 hover:bg-purple-500 transition"
+                                    >
+                                        <GrNotes className="text-gray-500 hover:text-white" />
+                                    </button>
+                                </div>
                             </div>
 
-                            {/* Lesson state badge */}
-                            <p className={`text-xs px-3 py-1 rounded-full font-medium ${getStateBadgeClasses(lesson.state)}`}>
-                                {getStateText(lesson.state)}
-                            </p>
+                            {showNotes[lesson.title] && (
+                                <textarea
+                                    rows={3}
+                                    value={notes[lesson.title] || ""}
+                                    onChange={(e) =>
+                                        handleNotesChange(lesson.title, e.target.value)
+                                    }
+                                    className="mt-3 w-full p-3 rounded-lg border bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 resize-none"
+                                    placeholder="Write your notes here..."
+                                />
+                            )}
                         </div>
                     ))}
                 </div>
