@@ -9,83 +9,34 @@ const DailyLog = () => {
     const studyData = [
         {
             topic: "React",
-            about: [
-                "useState",
-                "useEffect",
-                "Props",
-                "State lifting",
-                "Context API",
-                "Custom Hooks",
-                "React Router",
-                "Conditional rendering",
-                "Forms handling",
-                "Dark Mode toggle",
-                "Error Boundaries",
-            ],
+            about: ["useState", "useEffect", "Props", "State lifting",
+                "Context API", "Custom Hooks", "React Router", "Conditional rendering",
+                "Forms handling", "Dark Mode toggle", "Error Boundaries"],
         },
         {
             topic: "JavaScript",
-            about: [
-                "Array methods",
-                "Closures",
-                "Promises",
-                "Async/Await",
-                "Event loop",
-                "Hoisting",
-                "ES6 Modules",
-                "Destructuring",
-                "Spread & Rest",
-                "Call, Apply, Bind",
-                "Object manipulation",
-            ],
+            about: ["Array methods", "Closures", "Promises", "Async/Await",
+                "Event loop", "Hoisting", "ES6 Modules", "Destructuring",
+                "Spread & Rest", "Call, Apply, Bind", "Object manipulation"],
         },
         {
             topic: "Git",
-            about: [
-                "git init",
-                "git clone",
-                "git add",
-                "git commit",
-                "git push",
-                "git pull",
-                "git merge",
-                "git rebase",
-                "git stash",
-                "git branch",
-                "git checkout",
-            ],
+            about: ["git init", "git clone", "git add", "git commit",
+                "git push", "git pull", "git merge", "git rebase",
+                "git stash", "git branch", "git checkout"],
         },
         {
             topic: "SQL",
-            about: [
-                "SELECT",
-                "JOIN",
-                "GROUP BY",
-                "ORDER BY",
-                "WHERE",
-                "HAVING",
-                "INSERT",
-                "UPDATE",
-                "DELETE",
-                "Indexes",
-                "Subqueries",
-            ],
+            about: ["SELECT", "JOIN", "GROUP BY", "ORDER BY", "WHERE",
+                "HAVING", "INSERT", "UPDATE", "DELETE",
+                "Indexes","Subqueries"],
         },
         {
             topic: "System Design",
-            about: [
-                "REST APIs",
-                "Scalability basics",
-                "Load Balancing",
-                "Caching strategies",
-                "Database design",
-                "Microservices",
-                "Rate limiting",
-                "Data partitioning",
-                "Message Queues",
-                "CAP theorem",
-                "High availability",
-            ],
+            about: ["REST APIs", "Scalability basics", "Load Balancing",
+                "Caching strategies", "Database design", "Microservices",
+                "Rate limiting", "Data partitioning", "Message Queues",
+                "CAP theorem", "High availability"],
         },
     ];
 
@@ -99,84 +50,87 @@ const DailyLog = () => {
     }, []);
 
     useEffect(() => {
-        if (mounted) localStorage.setItem("study-selected", JSON.stringify(selectedStudy));
+        if (mounted) {
+            localStorage.setItem("study-selected", JSON.stringify(selectedStudy));
+        }
     }, [selectedStudy, mounted]);
 
     const toggleStudy = (key: string) => {
-        setSelectedStudy(
-            selectedStudy.includes(key)
-                ? selectedStudy.filter((i) => i !== key)
-                : [...selectedStudy, key]
+        setSelectedStudy((prev) =>
+            prev.includes(key) ? prev.filter((i) => i !== key) : [...prev, key]
         );
     };
 
-    // -------------------- Notes & Reflections --------------------
+    // -------------------- Notes --------------------
     const [notes, setNotes] = useState("");
     const [savedText, setSavedText] = useState("");
-
 
     useEffect(() => {
         const savedNotes = localStorage.getItem("notes");
         if (savedNotes) setNotes(savedNotes);
-    }, []);
 
-    useEffect(() => {
-        const saved = localStorage.getItem("saved-text");
-        if (saved) setSavedText(saved);
+        const savedText = localStorage.getItem("saved-text");
+        if (savedText) setSavedText(savedText);
     }, []);
-
 
     // -------------------- Recent Activity --------------------
     const [recentActivities, setRecentActivities] = useState<{ text: string }[]>([]);
-
-    // -------------------- Save button action --------------------
-    const saveLog = () => {
-        const newActivities = selectedStudy.map((key) => {
-            for (let item of studyData) {
-                for (let point of item.about) {
-                    if (key === item.topic + point) return { text: point };
-                }
-            }
-            return { text: key };
-        });
-
-        setRecentActivities(newActivities); // Update Recent Activity
-        setSavedText(notes); 
-        
-        localStorage.setItem("notes", notes); // Save notes
-        localStorage.setItem("saved-text", notes); // Save displayed notes
-        localStorage.setItem("recent-activities", JSON.stringify(newActivities)); // Save activities
-    };
-
 
     useEffect(() => {
         const savedActivities = localStorage.getItem("recent-activities");
         if (savedActivities) setRecentActivities(JSON.parse(savedActivities));
     }, []);
 
+    // -------------------- Save --------------------
+    const saveLog = () => {
+        const newActivities = selectedStudy.map((key) => {
+            for (let item of studyData) {
+                for (let point of item.about) {
+                    if (key === item.topic + point) {
+                        return { text: point };
+                    }
+                }
+            }
+            return { text: key };
+        });
+
+        setRecentActivities(newActivities);
+        setSavedText(notes);
+
+        localStorage.setItem("notes", notes);
+        localStorage.setItem("saved-text", notes);
+        localStorage.setItem("recent-activities", JSON.stringify(newActivities));
+    };
+
     if (!mounted) return null;
 
     return (
-        <div className="flex gap-6 min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-            <div className="flex flex-col">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 px-4 sm:px-6 lg:px-8">
+            {/* -------------------- Main Grid -------------------- */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* -------------------- Study Today -------------------- */}
-                <div className="border border-gray-300 shadow-md rounded-lg p-7 my-6 lg:w-200 bg-white dark:bg-gray-800 dark:border-gray-700">
-                    <p className="font-semibold mb-2">
+                <div className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md rounded-lg p-5 sm:p-7">
+                    <p className="font-semibold mb-3 text-sm sm:text-base">
                         What did you study today?
                     </p>
+
                     {studyData.map((item) => (
                         <div key={item.topic} className="mb-4">
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{item.topic}</p>
-                            <div className="flex flex-wrap gap-2">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                                {item.topic}
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 sm:gap-3">
                                 {item.about.map((point) => {
                                     const key = item.topic + point;
                                     const active = selectedStudy.includes(key);
+
                                     return (
                                         <span
                                             key={key}
                                             onClick={() => toggleStudy(key)}
-                                            className={`cursor-pointer text-xs px-3 py-1 rounded-full transition
-                    ${active
+                                            className={`cursor-pointer text-xs sm:text-sm px-3 py-1 rounded-full transition
+                                                ${active
                                                     ? "bg-purple-500 text-white"
                                                     : "bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
                                                 }`}
@@ -190,54 +144,61 @@ const DailyLog = () => {
                     ))}
                 </div>
 
-                {/* -------------------- Notes & Reflections -------------------- */}
-                <div className="border border-gray-300 lg:w-200 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded-lg p-7">
-                    <p className="font-semibold">Notes & Reflections</p>
+                {/* -------------------- Notes -------------------- */}
+                <div className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md rounded-lg p-5 sm:p-7">
+                    <p className="font-semibold text-sm sm:text-base">
+                        Notes & Reflections
+                    </p>
+
                     <textarea
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        className="w-full text-sm h-40 mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="w-full mt-2 h-32 sm:h-40 lg:h-48 text-sm p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
                         placeholder="What did you learn today? Any challenges or breakthroughs?"
                     />
-                    <div className="flex justify-center">
-                        <button
-                            onClick={saveLog}
-                            className="mt-2 flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition"
-                        >
-                            <LuSave /> Save Today's Log
-                        </button>
-                    </div>
+
+                    <button
+                        onClick={saveLog}
+                        className="mt-3 w-full sm:w-auto flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition"
+                    >
+                        <LuSave /> Save Today's Log
+                    </button>
                 </div>
             </div>
 
             {/* -------------------- Recent Activity -------------------- */}
-            <div className="border w-full mt-6 border-gray-300 shadow-md rounded-lg p-7 bg-white dark:bg-gray-800 dark:border-gray-700">
-                <h2 className="flex gap-4 items-center text-md font-semibold mb-4 text-gray-900 dark:text-gray-100">
-                    <IoBookOutline />Recent Activity
+            <div className="w-full mt-6 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md rounded-lg p-5 sm:p-7">
+                <h2 className="flex items-center gap-2 text-sm sm:text-base font-semibold mb-4">
+                    <IoBookOutline /> Recent Activity
                 </h2>
-                <div className="border p-5 border-gray-300 bg-gray-100 w-full max-h-full dark:bg-gray-700 dark:border-gray-600 rounded-xl">
+
+                <div className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl p-4">
                     <div className="flex justify-between mb-3">
-                        <p className="text-sm font-semibold">
-                            Today
-                        </p>
+                        <p className="text-sm font-semibold">Today</p>
                         <p className="text-xs text-gray-400">
                             {recentActivities.length} topics
                         </p>
                     </div>
+
                     <div className="flex flex-wrap gap-2">
                         {recentActivities.length === 0 && (
                             <p className="text-sm text-gray-500 dark:text-gray-400">
                                 No recent activity. Start logging your study today!
                             </p>
                         )}
+
                         {recentActivities.map((activity, index) => (
-                            <div key={index} className="inline text-xs bg-purple-200 dark:bg-purple-500 text-purple-700 dark:text-gray-200 px-3 py-1 rounded-full ">
+                            <span
+                                key={index}
+                                className="text-xs bg-purple-200 dark:bg-purple-500 text-purple-700 dark:text-gray-200 px-3 py-1 rounded-full"
+                            >
                                 {activity.text}
-                            </div>
+                            </span>
                         ))}
                     </div>
+
                     {savedText && (
-                        <div className="mt-4 p-4 border border-gray-300 rounded-md text-sm sm:text-sm bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                        <div className="mt-4 p-4 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-xs sm:text-sm leading-relaxed">
                             {savedText}
                         </div>
                     )}
