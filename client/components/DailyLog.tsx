@@ -105,9 +105,9 @@ const DailyLog = () => {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 px-4 sm:px-6 lg:px-8">
+        <div className="grid xl:grid-cols-2  gap-6 min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 px-4 sm:px-6 lg:px-8">
             {/* -------------------- Main Grid -------------------- */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-6">
                 {/* -------------------- Study Today -------------------- */}
                 <div className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md rounded-lg p-5 sm:p-7">
                     <p className="font-semibold mb-3 text-sm sm:text-base">
@@ -157,17 +157,19 @@ const DailyLog = () => {
                         placeholder="What did you learn today? Any challenges or breakthroughs?"
                     />
 
-                    <button
-                        onClick={saveLog}
-                        className="mt-3 w-full sm:w-auto flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition"
-                    >
-                        <LuSave /> Save Today's Log
-                    </button>
+                    <div className="flex items-center justify-center">
+                        <button
+                            onClick={saveLog}
+                            className="mt-3 w-full sm:w-auto flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition"
+                        >
+                            <LuSave /> Save Today's Log
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {/* -------------------- Recent Activity -------------------- */}
-            <div className="w-full mt-6 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md rounded-lg p-5 sm:p-7">
+            <div className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md rounded-lg p-5 sm:p-7">
                 <h2 className="flex items-center gap-2 text-sm sm:text-base font-semibold mb-4">
                     <IoBookOutline /> Recent Activity
                 </h2>
