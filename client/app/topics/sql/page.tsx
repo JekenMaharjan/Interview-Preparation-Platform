@@ -187,7 +187,7 @@ const Topics = () => {
                                     <p className="font-semibold">{lesson.title}</p>
                                 </div>
 
-                                <div className="flex gap-4">
+                                <div className="flex items-center gap-4">
                                     <span
                                         className={`px-3 py-1 rounded-full text-xs ${getStateBadgeClasses(
                                             lesson.state
@@ -198,9 +198,9 @@ const Topics = () => {
 
                                     <button
                                         onClick={() => toggleNotes(lesson.title)}
-                                        className="px-3 py-2 rounded-xl bg-gray-100 hover:bg-purple-500 transition"
+                                        className="group px-3 py-2 rounded-xl bg-gray-100 hover:bg-purple-500 transition"
                                     >
-                                        <GrNotes className="text-gray-500 hover:text-white" />
+                                        <GrNotes className="text-gray-500 group-hover:text-white" />
                                     </button>
                                 </div>
                             </div>
