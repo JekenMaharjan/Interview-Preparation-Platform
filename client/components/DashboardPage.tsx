@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import Topics from "./Topics";
 import { GiProgression } from "react-icons/gi";
 import CircularProgress from "./CircularProgress";
-import { MdOutlineDoneOutline } from "react-icons/md";
+import { MdOutlineNotStarted } from "react-icons/md";
+import { MdOutlineCloudDone } from "react-icons/md";
+import { FaRegClock } from "react-icons/fa6";
+
 
 const topicKeys = [
     "react-topic-progress",
@@ -69,19 +72,19 @@ const DashboardPage = () => {
             about: "Completed",
             completed: totalCompleted,
             outOf: totalTopics,
-            icon: <MdOutlineDoneOutline className="w-5 h-5 text-purple-700" />,
+            icon: <MdOutlineCloudDone className="w-5 h-5 text-purple-700" />,
         },
         {
             about: "In Progress",
             completed: totalInProgress,
             outOf: "topics active",
-            icon: <GiProgression className="w-5 h-5 text-purple-700" />,
+            icon: <FaRegClock className="w-5 h-5 text-purple-700" />,
         },
         {
             about: "Not Started",
             completed: totalNotStarted,
             outOf: "topics remaining",
-            icon: <GiProgression className="w-5 h-5 text-purple-700" />,
+            icon: <MdOutlineNotStarted className="w-5 h-5 text-purple-700" />,
         },
     ];
 

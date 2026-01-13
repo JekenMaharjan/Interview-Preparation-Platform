@@ -16,6 +16,9 @@ type Lesson = {
     state: LessonState;
 };
 
+const LESSON_KEY = "react-topic-progress";
+const NOTES_KEY = "react-lesson-notes";
+
 const Topics = () => {
     const defaultLessons: Lesson[] = [
         { title: "useState Hook", state: 0 },
@@ -28,80 +31,52 @@ const Topics = () => {
         { title: "Conditional Rendering", state: 0 },
     ];
 
-    const [topicLesson, setTopicLesson] = useState<Lesson[]>([]);
+    // 🔒 Hydration guard
+    const [mounted, setMounted] = useState(false);
+
+    const [topicLesson, setTopicLesson] = useState<Lesson[]>(defaultLessons);
     const [notes, setNotes] = useState<{ [key: string]: string }>({});
     const [showNotes, setShowNotes] = useState<{ [key: string]: boolean }>({});
 
-    // Load lessons from localStorage
+    // ✅ Run ONLY on client
     useEffect(() => {
-        const savedLessons = localStorage.getItem("react-topic-progress");
-        const savedNotes = localStorage.getItem("react-lesson-notes");
+        setMounted(true);
 
-        if (savedLessons) setTopicLesson(JSON.parse(savedLessons));
-        else setTopicLesson(defaultLessons);
+        const savedLessons = localStorage.getItem(LESSON_KEY);
+        const savedNotes = localStorage.getItem(NOTES_KEY);
 
-        if (savedNotes) setNotes(JSON.parse(savedNotes));
+        setTopicLesson(savedLessons ? JSON.parse(savedLessons) : defaultLessons);
+        setNotes(savedNotes ? JSON.parse(savedNotes) : {});
     }, []);
 
-    // Save lessons to localStorage
+    // ✅ Persist lessons
     useEffect(() => {
-        if (topicLesson.length > 0) {
-            localStorage.setItem("react-topic-progress", JSON.stringify(topicLesson));
+        if (mounted) {
+            localStorage.setItem(LESSON_KEY, JSON.stringify(topicLesson));
         }
-    }, [topicLesson]);
+    }, [topicLesson, mounted]);
 
-    // Save notes to localStorage
+    // ✅ Persist notes (every keystroke)
     useEffect(() => {
-        localStorage.setItem("react-lesson-notes", JSON.stringify(notes));
-    }, [notes]);
+        if (mounted) {
+            localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+        }
+    }, [notes, mounted]);
+
+    // ⛔ Prevent hydration mismatch
+    if (!mounted) return null;
 
     const handleClick = (index: number) => {
         setTopicLesson((prev) =>
             prev.map((lesson, i) =>
-                i === index ? { ...lesson, state: ((lesson.state + 1) % 3) as LessonState } : lesson
+                i === index
+                    ? { ...lesson, state: ((lesson.state + 1) % 3) as LessonState }
+                    : lesson
             )
         );
     };
 
     const handleBack = () => window.history.back();
-
-    const getCheckboxClasses = (state: LessonState) => {
-        switch (state) {
-            case 1:
-                return "bg-yellow-500 border-yellow-500";
-            case 2:
-                return "bg-purple-500 border-purple-500";
-            default:
-                return "bg-white border-gray-300 hover:border-purple-500";
-        }
-    };
-
-    const getStateText = (state: LessonState) => {
-        switch (state) {
-            case 1:
-                return "In Progress";
-            case 2:
-                return "Completed";
-            default:
-                return "Not Started";
-        }
-    };
-
-    const getStateBadgeClasses = (state: LessonState) => {
-        switch (state) {
-            case 1:
-                return "bg-yellow-500 text-white";
-            case 2:
-                return "bg-purple-500 text-white";
-            default:
-                return "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300";
-        }
-    };
-
-    const completedCount = topicLesson.filter((lesson) => lesson.state === 2).length;
-    const progressPercent = topicLesson.length
-        ? Math.round((completedCount / topicLesson.length) * 100)
-        : 0;
 
     const toggleNotes = (title: string) => {
         setShowNotes((prev) => ({ ...prev, [title]: !prev[title] }));
@@ -109,6 +84,29 @@ const Topics = () => {
 
     const handleNotesChange = (title: string, value: string) => {
         setNotes((prev) => ({ ...prev, [title]: value }));
+    };
+
+    const completedCount = topicLesson.filter((l) => l.state === 2).length;
+    const progressPercent = Math.round(
+        (completedCount / topicLesson.length) * 100
+    );
+
+    const getCheckboxClasses = (state: LessonState) => {
+        if (state === 1) return "bg-yellow-500 border-yellow-500";
+        if (state === 2) return "bg-purple-500 border-purple-500";
+        return "bg-white border-gray-300 hover:border-purple-500";
+    };
+
+    const getStateText = (state: LessonState) => {
+        if (state === 1) return "In Progress";
+        if (state === 2) return "Completed";
+        return "Not Started";
+    };
+
+    const getStateBadgeClasses = (state: LessonState) => {
+        if (state === 1) return "bg-yellow-500 text-white";
+        if (state === 2) return "bg-purple-500 text-white";
+        return "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300";
     };
 
     return (
@@ -120,14 +118,14 @@ const Topics = () => {
                 {/* Back */}
                 <p
                     onClick={handleBack}
-                    className="flex mb-5 items-center text-gray-500 text-sm cursor-pointer hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="flex mb-5 items-center text-gray-500 text-sm cursor-pointer hover:text-gray-900 dark:text-gray-400"
                 >
                     <MdOutlineKeyboardBackspace className="w-5 h-5 mr-2" />
                     Back to Topics
                 </p>
 
                 {/* Header */}
-                <div className="flex flex-col w-full rounded-xl bg-white dark:bg-gray-800 p-6 mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-6">
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-xl">
@@ -135,81 +133,81 @@ const Topics = () => {
                             </div>
                             <div>
                                 <p className="text-xl font-bold">React</p>
-                                <p className="text-sm text-gray-500 mt-1">
+                                <p className="text-sm text-gray-500">
                                     {completedCount} of {topicLesson.length} topics completed
                                 </p>
                             </div>
                         </div>
 
                         <div className="text-right">
-                            <p className="text-2xl font-bold text-purple-600">{progressPercent}%</p>
+                            <p className="text-2xl font-bold text-purple-600">
+                                {progressPercent}%
+                            </p>
                             <p className="text-sm text-gray-500">Completed</p>
                         </div>
                     </div>
 
-                    {/* Progress Bar */}
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         <div
-                            className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+                            className="bg-purple-600 h-2 rounded-full transition-all"
                             style={{ width: `${progressPercent}%` }}
                         />
                     </div>
                 </div>
 
                 {/* Lessons */}
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid gap-4">
                     {topicLesson.map((lesson, index) => (
                         <div
-                            key={index}
-                            className="flex flex-col gap-3 p-5 bg-white dark:bg-gray-800 rounded-lg shadow"
+                            key={lesson.title}
+                            className="bg-white dark:bg-gray-800 rounded-lg shadow p-5"
                         >
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-4">
-                                    {/* Tri-state checkbox */}
                                     <div
                                         onClick={() => handleClick(index)}
-                                        className={`h-7 w-7 cursor-pointer rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${getCheckboxClasses(
+                                        className={`h-7 w-7 cursor-pointer rounded-full border-2 flex items-center justify-center ${getCheckboxClasses(
                                             lesson.state
                                         )}`}
                                     >
-                                        {lesson.state === 1 && <LuClock className="text-white text-lg" />}
-                                        {lesson.state === 2 && <FaCheck className="text-white text-sm" />}
+                                        {lesson.state === 1 && (
+                                            <LuClock className="text-white" />
+                                        )}
+                                        {lesson.state === 2 && (
+                                            <FaCheck className="text-white text-sm" />
+                                        )}
                                     </div>
 
                                     <p className="font-semibold">{lesson.title}</p>
                                 </div>
 
                                 <div className="flex gap-4">
-                                    {/* Lesson state badge */}
-                                    <p
-                                        className={`flex text-xs items-center px-3 py-1 rounded-full font-medium ${getStateBadgeClasses(
+                                    <span
+                                        className={`px-3 py-1 rounded-full text-xs ${getStateBadgeClasses(
                                             lesson.state
                                         )}`}
                                     >
                                         {getStateText(lesson.state)}
-                                    </p>
+                                    </span>
 
-                                    {/* Notes button */}
                                     <button
                                         onClick={() => toggleNotes(lesson.title)}
-                                        className="group cursor-pointer py-2 px-3 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-purple-500 transition-colors duration-200"
+                                        className="px-3 py-2 rounded-xl bg-gray-100 hover:bg-purple-500 transition"
                                     >
-                                        <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 group-hover:text-white transition-colors duration-200">
-                                            <GrNotes className="h-3 w-3 text-gray-500 dark:text-gray-400 group-hover:text-white" />
-                                            Notes
-                                        </p>
+                                        <GrNotes className="text-gray-500 hover:text-white" />
                                     </button>
                                 </div>
                             </div>
 
-                            {/* Notes Textarea */}
                             {showNotes[lesson.title] && (
                                 <textarea
-                                    value={notes[lesson.title] || ""}
-                                    onChange={(e) => handleNotesChange(lesson.title, e.target.value)}
-                                    className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
-                                    placeholder="Write your notes here..."
                                     rows={3}
+                                    value={notes[lesson.title] || ""}
+                                    onChange={(e) =>
+                                        handleNotesChange(lesson.title, e.target.value)
+                                    }
+                                    className="mt-3 w-full p-3 rounded-lg border bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 resize-none"
+                                    placeholder="Write your notes here..."
                                 />
                             )}
                         </div>

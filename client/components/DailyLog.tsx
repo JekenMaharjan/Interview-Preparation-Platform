@@ -116,7 +116,7 @@ const DailyLog = () => {
 
                     {studyData.map((item) => (
                         <div key={item.topic} className="mb-4">
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                                 {item.topic}
                             </p>
 
@@ -129,7 +129,7 @@ const DailyLog = () => {
                                         <span
                                             key={key}
                                             onClick={() => toggleStudy(key)}
-                                            className={`cursor-pointer text-xs sm:text-sm px-3 py-1 rounded-full transition
+                                            className={`cursor-pointer text-xs px-3 py-1 rounded-full transition
                                                 ${active
                                                     ? "bg-purple-500 text-white"
                                                     : "bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
