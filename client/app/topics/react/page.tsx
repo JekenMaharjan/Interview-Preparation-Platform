@@ -84,11 +84,7 @@ const topics = () => {
                                     {/* Checkbox to mark as done */}
                                     <input
                                         type="checkbox"
-                                        className="h-5 w-5 cursor-pointer 
-                                    appearance-none rounded-full
-                                    border-2 border-purple-500
-                                    checked:bg-purple-500
-                                    checked:border-purple-500"
+                                        className={'h-5 w-5 cursor-pointer appearance-none rounded-fullborder-2 border-purple-500 checked:bg-purple-500 checked:border-purple-500'}
                                     />
 
                                     {/* Title and State */}
