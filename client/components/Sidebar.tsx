@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RiFocus2Line } from "react-icons/ri";
 import { MdOutlineDashboard } from "react-icons/md";
 import { IoBookOutline } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
+import Image from "next/image";
 
 const Sidebar = () => {
     const pathname = usePathname();
@@ -24,7 +24,14 @@ const Sidebar = () => {
 
             {/* Title */}
             <div className="flex gap-2 border-b p-2 h-20 border-gray-300 dark:border-gray-700">
-                <RiFocus2Line className="w-15 h-15 text-purple-700"/>
+                <Image
+                    src="/InterviewPrepLogo.png"
+                    alt="Interview Prep Logo"
+                    width={70}
+                    height={70}
+                    className="object-contain"
+                />
+
                 <div className="flex flex-col justify-center">
                     <p className="font-bold text-purple-600 text-xl dark:text-purple-500">
                         InterviewPrep
