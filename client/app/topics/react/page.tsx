@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import ToggleBar from "@/components/ToggleBar";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { FaReact } from "react-icons/fa";
+import { FaReact, FaCheck } from "react-icons/fa";
 import { LuClock } from "react-icons/lu";
-import { FaCheck } from "react-icons/fa6";
+import { GrNotes } from "react-icons/gr";
 
 // --- Types ---
-type LessonState = 0 | 1 | 2; // 0 = Not Started, 1 = In Progress, 2 = Completed
+type LessonState = 0 | 1 | 2;
 
 type Lesson = {
     title: string;
@@ -17,7 +17,6 @@ type Lesson = {
 };
 
 const Topics = () => {
-    // Default lessons
     const defaultLessons: Lesson[] = [
         { title: "useState Hook", state: 0 },
         { title: "useEffect Hook", state: 0 },
@@ -26,49 +25,47 @@ const Topics = () => {
         { title: "Context API", state: 0 },
         { title: "Custom Hooks", state: 0 },
         { title: "React Router", state: 0 },
-        { title: "Conditional Rendering", state: 0 }
+        { title: "Conditional Rendering", state: 0 },
     ];
 
-    // --- State ---
     const [topicLesson, setTopicLesson] = useState<Lesson[]>([]);
+    const [notes, setNotes] = useState<{ [key: string]: string }>({});
+    const [showNotes, setShowNotes] = useState<{ [key: string]: boolean }>({});
 
-    // Load from localStorage on mount
+    // Load lessons from localStorage
     useEffect(() => {
         const savedLessons = localStorage.getItem("react-topic-progress");
-        if (savedLessons) {
-            setTopicLesson(JSON.parse(savedLessons));
-        } else {
-            setTopicLesson(defaultLessons);
-        }
+        const savedNotes = localStorage.getItem("react-lesson-notes");
+
+        if (savedLessons) setTopicLesson(JSON.parse(savedLessons));
+        else setTopicLesson(defaultLessons);
+
+        if (savedNotes) setNotes(JSON.parse(savedNotes));
     }, []);
 
-    // Save to localStorage whenever topicLesson changes
+    // Save lessons to localStorage
     useEffect(() => {
         if (topicLesson.length > 0) {
-            localStorage.setItem(
-                "react-topic-progress",
-                JSON.stringify(topicLesson)
-            );
+            localStorage.setItem("react-topic-progress", JSON.stringify(topicLesson));
         }
     }, [topicLesson]);
 
-    // --- Handlers ---
+    // Save notes to localStorage
+    useEffect(() => {
+        localStorage.setItem("react-lesson-notes", JSON.stringify(notes));
+    }, [notes]);
+
     const handleClick = (index: number) => {
-        setTopicLesson((prev: Lesson[]) =>
-            prev.map((lesson: Lesson, i: number) =>
-                i === index
-                    ? { ...lesson, state: ((lesson.state + 1) % 3) as LessonState }
-                    : lesson
+        setTopicLesson((prev) =>
+            prev.map((lesson, i) =>
+                i === index ? { ...lesson, state: ((lesson.state + 1) % 3) as LessonState } : lesson
             )
         );
     };
 
-    const handleBack = () => {
-        window.history.back();
-    };
+    const handleBack = () => window.history.back();
 
-    // --- Helper functions ---
-    const getCheckboxClasses = (state: LessonState): string => {
+    const getCheckboxClasses = (state: LessonState) => {
         switch (state) {
             case 1:
                 return "bg-yellow-500 border-yellow-500";
@@ -79,7 +76,7 @@ const Topics = () => {
         }
     };
 
-    const getStateText = (state: LessonState): string => {
+    const getStateText = (state: LessonState) => {
         switch (state) {
             case 1:
                 return "In Progress";
@@ -90,7 +87,7 @@ const Topics = () => {
         }
     };
 
-    const getStateBadgeClasses = (state: LessonState): string => {
+    const getStateBadgeClasses = (state: LessonState) => {
         switch (state) {
             case 1:
                 return "bg-yellow-500 text-white";
@@ -101,13 +98,18 @@ const Topics = () => {
         }
     };
 
-    const completedCount = topicLesson.filter(
-        (lesson: Lesson) => lesson.state === 2
-    ).length;
-
+    const completedCount = topicLesson.filter((lesson) => lesson.state === 2).length;
     const progressPercent = topicLesson.length
         ? Math.round((completedCount / topicLesson.length) * 100)
         : 0;
+
+    const toggleNotes = (title: string) => {
+        setShowNotes((prev) => ({ ...prev, [title]: !prev[title] }));
+    };
+
+    const handleNotesChange = (title: string, value: string) => {
+        setNotes((prev) => ({ ...prev, [title]: value }));
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -140,9 +142,7 @@ const Topics = () => {
                         </div>
 
                         <div className="text-right">
-                            <p className="text-2xl font-bold text-purple-600">
-                                {progressPercent}%
-                            </p>
+                            <p className="text-2xl font-bold text-purple-600">{progressPercent}%</p>
                             <p className="text-sm text-gray-500">Completed</p>
                         </div>
                     </div>
@@ -161,35 +161,57 @@ const Topics = () => {
                     {topicLesson.map((lesson, index) => (
                         <div
                             key={index}
-                            className="flex justify-between items-center p-5 bg-white dark:bg-gray-800 rounded-lg shadow"
+                            className="flex flex-col gap-3 p-5 bg-white dark:bg-gray-800 rounded-lg shadow"
                         >
-                            <div className="flex items-center gap-4">
-                                {/* Tri-state checkbox */}
-                                <div
-                                    onClick={() => handleClick(index)}
-                                    className={`h-7 w-7 cursor-pointer rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${getCheckboxClasses(
-                                        lesson.state
-                                    )}`}
-                                >
-                                    {lesson.state === 1 && (
-                                        <LuClock className="text-white text-lg" />
-                                    )}
-                                    {lesson.state === 2 && (
-                                        <FaCheck className="text-white text-sm" />
-                                    )}
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-4">
+                                    {/* Tri-state checkbox */}
+                                    <div
+                                        onClick={() => handleClick(index)}
+                                        className={`h-7 w-7 cursor-pointer rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${getCheckboxClasses(
+                                            lesson.state
+                                        )}`}
+                                    >
+                                        {lesson.state === 1 && <LuClock className="text-white text-lg" />}
+                                        {lesson.state === 2 && <FaCheck className="text-white text-sm" />}
+                                    </div>
+
+                                    <p className="font-semibold">{lesson.title}</p>
                                 </div>
 
-                                <p className="font-semibold">{lesson.title}</p>
+                                <div className="flex gap-4">
+                                    {/* Lesson state badge */}
+                                    <p
+                                        className={`flex text-xs items-center px-3 py-1 rounded-full font-medium ${getStateBadgeClasses(
+                                            lesson.state
+                                        )}`}
+                                    >
+                                        {getStateText(lesson.state)}
+                                    </p>
+
+                                    {/* Notes button */}
+                                    <button
+                                        onClick={() => toggleNotes(lesson.title)}
+                                        className="group cursor-pointer py-2 px-3 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-purple-500 transition-colors duration-200"
+                                    >
+                                        <p className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 group-hover:text-white transition-colors duration-200">
+                                            <GrNotes className="h-3 w-3 text-gray-500 dark:text-gray-400 group-hover:text-white" />
+                                            Notes
+                                        </p>
+                                    </button>
+                                </div>
                             </div>
 
-                            {/* Lesson state badge */}
-                            <p
-                                className={`text-xs px-3 py-1 rounded-full font-medium ${getStateBadgeClasses(
-                                    lesson.state
-                                )}`}
-                            >
-                                {getStateText(lesson.state)}
-                            </p>
+                            {/* Notes Textarea */}
+                            {showNotes[lesson.title] && (
+                                <textarea
+                                    value={notes[lesson.title] || ""}
+                                    onChange={(e) => handleNotesChange(lesson.title, e.target.value)}
+                                    className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
+                                    placeholder="Write your notes here..."
+                                    rows={3}
+                                />
+                            )}
                         </div>
                     ))}
                 </div>
