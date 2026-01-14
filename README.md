@@ -95,7 +95,7 @@ Interview-Preparation-Platform/
 
 Follow these steps to run the project locally.
 
-1️.**Clone the repository**
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/JekenMaharjan/Interview-Preparation-Platform.git
