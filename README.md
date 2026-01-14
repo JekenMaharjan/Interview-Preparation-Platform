@@ -1,5 +1,7 @@
 # Interview Preparation Platform 🚀
 
+🔗 **Live Demo:** [Interview Preparation Platform](https://interview-preparations-platform.vercel.app/dashboard)
+
 Interview Preparation Platform is a frontend-focused web application designed to help software engineering students and developers organize, track, and improve their interview preparation in a structured way.
 
 This project is built with modern React and Next.js practices while keeping the UI simple, clean, and easy to use.
