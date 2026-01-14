@@ -41,6 +41,9 @@ It is especially useful for students and junior developers preparing for softwar
 
 ## 📂 Project Structure
 
+
+
+```text
 Interview-Preparation-Platform/
 ├── client/
 │   ├── app/
@@ -86,3 +89,4 @@ Interview-Preparation-Platform/
 │   └── postcss.config.mjs
 │
 └── README.md
+```
