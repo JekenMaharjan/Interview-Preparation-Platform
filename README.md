@@ -71,6 +71,10 @@ Interview-Preparation-Platform/
 │   │   └── Topics.tsx
 │   │
 │   ├── public/
+|   |   ├── screenshots
+|   |       ├──
+|   |       ├──
+|   |       ├──
 │   │   ├── InterviewPrepLogo.png
 │   │   ├── file.svg
 │   │   ├── globe.svg
@@ -96,42 +100,54 @@ Interview-Preparation-Platform/
 Follow these steps to run the project locally.
 
 1. **Clone the repository**
-
-```bash
-git clone https://github.com/JekenMaharjan/Interview-Preparation-Platform.git
-```
+    ```bash
+    git clone https://github.com/JekenMaharjan/Interview-Preparation-Platform.git
+    ```
 
 2️. **Navigate to the project directory**
-
-```bash
-cd Interview-Preparation-Platform
-```
+    ```bash
+    cd Interview-Preparation-Platform
+    ```
 
 3️. **Install dependencies**
-
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ``` 
 or
-```bash
-yarn install
-```
+    ```bash
+    yarn install
+    ```
+
 
 4️. **Start the development server**
-
-```bash
-npm run dev
-```
+    ```bash
+    npm run dev
+    ```
 or
-```bash
-yarn dev
-```
+    ```bash
+    yarn dev
+    ```
 
 5️. **Open in browser**
+    ```bash
+    http://localhost:3000
+    ```
 
-```bash
-http://localhost:3000
-```
+---
+
+## 🖼️ Screenshots
+
+### Dashboard
+![Dashboard](client/public/screenshots/dashboard.png)
+
+### Topics Page
+![Topics](client/public/screenshots/topics.png)
+
+### Daily Log
+![Daily Log](client/public/screenshots/daily-log.png)
+
+### React Progress
+![React Progress](client/public/screenshots/react-prep.png)
 
 ---
 
@@ -160,17 +176,21 @@ Planned enhancements include:
 ## 🤝 Contributing
 
 Contributions are always welcome! Follow these steps to contribute:
-1. Fork the repository.
-2. Create a new branch:
+
+1. **Fork the repository.**
+2. **Create a new branch:**
     ```bash
     git checkout -b feature-name
-3. Make your changes and commit them:
+    ```
+3. **Make your changes and commit them:**
     ```bash
     git commit -m "Description of changes"
-4. Push to the branch:
+    ```
+4. **Push to the branch:**
     ```bash
     git push origin feature-name
-5. Open a pull request.
+    ```
+5. **Open a pull request.**
 
 ---
 
@@ -183,7 +203,8 @@ This project is licensed under the [MIT License](https://choosealicense.com/lice
 ## 📬 Contact
 
 For any inquiries, reach out to us at:
-- **Email:** [JekenMaharjan](maharjanjeken@gmail.com)
+
+- **Email:** [maharjanjeken@gmail.com](mailto:maharjanjeken@gmail.com)
 - **Github:** [Jekode](https://github.com/JekenMaharjan)
 
 ---
