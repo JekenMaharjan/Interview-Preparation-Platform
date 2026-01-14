@@ -128,6 +128,8 @@ yarn dev
 http://localhost:3000
 ```
 
+---
+
 ## 🧪 How to Use
 
 1. Open the application
@@ -137,6 +139,8 @@ http://localhost:3000
 
 This platform is intended to grow alongside your preparation journey.
 
+---
+
 ## 🔮 Future Improvements
 
 Planned enhancements include:
@@ -145,6 +149,8 @@ Planned enhancements include:
 2. User authentication
 3. Search and filter for topics
 4. Cloud sync for notes
+
+---
 
 ## 🤝 Contributing
 
