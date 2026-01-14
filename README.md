@@ -128,6 +128,39 @@ yarn dev
 http://localhost:3000
 ```
 
+## 🧪 How to Use
 
+1. Open the application
+2. Select an interview topic
+3. Track your progress as you study
+4. Add notes for quick revision later
 
+This platform is intended to grow alongside your preparation journey.
+
+## 🔮 Future Improvements
+
+Planned enhancements include:
+
+1. Backend integration for persistent data storage
+2. User authentication
+3. Search and filter for topics
+4. Cloud sync for notes
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+To contribute:
+
+1. Fork the repository
+2. Create a new branch (feature/your-feature-name)
+3. Commit your changes
+4. Open a Pull Request
+
+Please keep commits clean and descriptive.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+You are free to use, modify, and distribute this project.
 
