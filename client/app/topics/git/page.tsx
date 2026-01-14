@@ -35,14 +35,14 @@ const Topics = () => {
         { title: "git checkout", state: 0 },
     ];
 
-    // 🔒 Hydration guard
+    // Hydration guard
     const [mounted, setMounted] = useState(false);
 
     const [topicLesson, setTopicLesson] = useState<Lesson[]>(defaultLessons);
     const [notes, setNotes] = useState<{ [key: string]: string }>({});
     const [showNotes, setShowNotes] = useState<{ [key: string]: boolean }>({});
 
-    // ✅ Client-only load
+    // Client-only load
     useEffect(() => {
         setMounted(true);
 
@@ -53,21 +53,21 @@ const Topics = () => {
         setNotes(savedNotes ? JSON.parse(savedNotes) : {});
     }, []);
 
-    // ✅ Persist lessons
+    // Persist lessons
     useEffect(() => {
         if (mounted) {
             localStorage.setItem(LESSON_KEY, JSON.stringify(topicLesson));
         }
     }, [topicLesson, mounted]);
 
-    // ✅ Persist notes
+    // Persist notes
     useEffect(() => {
         if (mounted) {
             localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
         }
     }, [notes, mounted]);
 
-    // ⛔ Prevent hydration mismatch
+    // Prevent hydration mismatch
     if (!mounted) return null;
 
     // --- Handlers ---
