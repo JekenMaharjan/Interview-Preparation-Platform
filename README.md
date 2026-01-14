@@ -1,6 +1,6 @@
 # Interview Preparation Platform 🚀
 
-Interview Preparation Platform is a frontend-focused web application designed to help software engineering students and    developers organize, track, and improve their interview preparation in a structured way.
+Interview Preparation Platform is a frontend-focused web application designed to help software engineering students and developers organize, track, and improve their interview preparation in a structured way.
 
 This project is built with modern React and Next.js practices while keeping the UI simple, clean, and easy to use.
 
@@ -95,19 +95,19 @@ Interview-Preparation-Platform/
 
 Follow these steps to run the project locally.
 
-1️. **Clone the repository**
+1️.**Clone the repository**
 
 ```bash
 git clone https://github.com/JekenMaharjan/Interview-Preparation-Platform.git
 ```
 
-2️. **Navigate to the project directory**
+2️.**Navigate to the project directory**
 
 ```bash
 cd Interview-Preparation-Platform
 ```
 
-3️. **Install dependencies**
+3️.**Install dependencies**
 
 ```bash
 npm install
@@ -117,7 +117,7 @@ or
 yarn install
 ```
 
-4️. **Start the development server**
+4️.**Start the development server**
 
 ```bash
 npm run dev
@@ -127,7 +127,7 @@ or
 yarn dev
 ```
 
-5️. **Open in browser**
+5️.**Open in browser**
 
 ```bash
 http://localhost:3000
