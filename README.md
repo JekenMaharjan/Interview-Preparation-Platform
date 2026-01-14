@@ -90,3 +90,44 @@ Interview-Preparation-Platform/
 │
 └── README.md
 ```
+
+## 🚀 Getting Started
+
+Follow these steps to run the project locally.
+
+1️⃣ Clone the repository
+```bash
+git clone https://github.com/JekenMaharjan/Interview-Preparation-Platform.git
+```
+
+2️⃣ Navigate to the project directory
+```bash
+cd Interview-Preparation-Platform
+```
+
+3️⃣ Install dependencies
+```bash
+npm install
+```
+or
+```bash
+yarn install
+```
+
+4️⃣ Start the development server
+```bash
+npm run dev
+```
+or
+```bash
+yarn dev
+```
+
+5️⃣ Open in browser
+```bash
+http://localhost:3000
+```
+
+
+
+
