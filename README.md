@@ -148,19 +148,40 @@ Planned enhancements include:
 
 ## 🤝 Contributing
 
-Contributions are welcome.
+Contributions are always welcome! Follow these steps to contribute:
+1. Fork the repository.
+2. Create a new branch:
+    ```bash
+    git checkout -b feature-name
+3. Make your changes and commit them:
+    ```bash
+    git commit -m "Description of changes"
+4. Push to the branch:
+    ```bash
+    git push origin feature-name
+5. Open a pull request.
 
-To contribute:
-
-1. Fork the repository
-2. Create a new branch (feature/your-feature-name)
-3. Commit your changes
-4. Open a Pull Request
-
-Please keep commits clean and descriptive.
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
-You are free to use, modify, and distribute this project.
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
+
+---
+
+## 📬 Contact
+
+For any inquiries, reach out to us at:
+- **Email:** [JekenMaharjan](maharjanjeken@gmail.com)
+- **Github:** [Jekode](https://github.com/JekenMaharjan)
+
+---
+
+## 🌐 Connect with Me
+
+> 🌐 Portfolio: [**jekenmaharjan.com.np**](https://jekenmaharjan.com.np)
+
+> [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/jekenmaharjan/)  [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/JekenMaharjan)  [![Twitter](https://img.shields.io/badge/-Twitter-1DA1F2?style=flat-square&logo=twitter)](https://x.com/JekenMaharjan)  [![Linktree](https://img.shields.io/badge/-Connect-43E660?style=flat-square&logo=linktree&logoColor=white)](https://linktr.ee/JekenMaharjan)
+
+📬 Email: [maharjanjeken@gmail.com](mailto:maharjanjeken@gmail.com)
 
